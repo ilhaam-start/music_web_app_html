@@ -1,12 +1,53 @@
 import os
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
-
+from lib.album_repository import AlbumRepository
+from lib.album import Album
+from lib.artist_repository import ArtistRepository
+from lib.artist import Artist
 # Create a new Flask app
 app = Flask(__name__)
 
 # == Your Routes Here ==
 
+@app.route('/albums', methods=['POST'])
+def add_albums():
+    connection = get_flask_database_connection(app)
+    repository = AlbumRepository(connection)
+    if 'title' and 'release_year' and 'artist_id' not in request.form:
+        return 'Invalid - You need to add an album', 400
+    album1 = Album(None, request.form['title'], request.form['release_year'],request.form['artist_id'])
+    repository.create(album1)
+    return ''
+
+@app.route('/albums', methods=['GET'])
+def get_albums():
+    connection = get_flask_database_connection(app)
+    repository = AlbumRepository(connection)
+    albums = repository.all()
+    return ", ".join(f"{album}" for album in albums)
+
+@app.route('/albums/<id>', methods=['GET'])
+def get_album_1(id):
+    connection = get_flask_database_connection(app)
+    repository = AlbumRepository(connection)
+    albums = repository.find(id)
+    return str(albums)
+
+@app.route('/artists', methods=['GET'])
+def get_artists():
+    connection = get_flask_database_connection(app)
+    repo = ArtistRepository(connection)
+    artists = repo.all()
+    return ", ".join(f"{artist.name}" for artist in artists)
+
+@app.route('/artists', methods=['POST'])
+def add_artists():
+    connection = get_flask_database_connection(app)
+    repo = ArtistRepository(connection)
+    artists = Artist(None, request.form['name'], request.form['genre'])
+    repo.create(artists)
+    return ''
 
 # == Example Code Below ==
 
