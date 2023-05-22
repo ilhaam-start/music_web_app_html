@@ -18,6 +18,27 @@ def test_visit_show_page(page, test_web_address, db_connection):
     expect(h1_tag).to_have_text("Album: Surfer Rosa")
     paragraph_tag = page.locator("p")
     expect(paragraph_tag).to_have_text("Released: 1988")
+
+def test_get_artist(page, test_web_address, db_connection):
+    db_connection.seed("seeds/albums_table.sql")
+    page.goto(f"http://{test_web_address}/artists/2")
+    name_element = page.locator(".t-name")
+    expect(name_element).to_have_text("Artist: ABBA")
+    genre_element = page.locator(".t-genre")
+    expect(genre_element).to_have_text("Genre: Pop")
+
+def test_get_all_artists(page, test_web_address, db_connection):
+    db_connection.seed("seeds/albums_table.sql")
+    page.goto(f"http://{test_web_address}/artists")
+    li_tags = page.locator("li")
+    expect(li_tags).to_have_text([
+        "Pixies",
+        "ABBA",
+        "Taylor Swift",
+        "Nina Simone"
+    ])
+
+
 # === Example Code Below ===
 
 """

@@ -1,0 +1,21 @@
+<!-- This is the template that will be rendereed and returned as the response to the request given -->
+
+<html>
+
+<head>
+    <title>Artists List</title>
+</head>
+
+<body>
+    <h1>Artists</h1> <!-- This is the heading tag -->
+
+    <ul>
+        {% for artist in artists %}
+        <li>
+            <a href="/artists/{{artist.id}}">{{artist.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

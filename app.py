@@ -26,6 +26,24 @@ def get_album_id(id):
     album = repo.find(id)
     return render_template("albums/show.html", album=album)
 
+@app.route('/artists/<id>')
+def get_artist_id(id):
+    connection = get_flask_database_connection(app)
+    repo = ArtistRepository(connection)
+    artist = repo.find(id)
+    return render_template("albums/show_artists.html", artist=artist)
+
+@app.route('/artists')
+def get_artists():
+    connection = get_flask_database_connection(app)
+    repo = ArtistRepository(connection)
+    artists = repo.all()
+    return render_template("albums/artists_index.html", artists = artists)
+
+
+
+
+
 # == Example Code Below ==
 
 # GET /emoji
