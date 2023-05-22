@@ -1,15 +1,18 @@
 <!-- This is the template that will be rendereed and returned as the response to the request given -->
 
 <html>
-  <head></head>
+  <head>
+    <title>Album List</title>
+  </head>
   <body>
     <h1>Albums</h1> <!-- This is the heading tag -->
-
-    {% for albums in albums %} <!-- loops over each album in albums -->
-      <div> <!-- Used to group the album information -->
-        Title: {{albums.title}}, <!-- To be replaced with actual values from each iteration -->
-        Released: {{albums.release_year}} <!-- To be replaced with actual values from each iteration -->
-      </div>
-    {% endfor %} <!-- ends loop -->
+    
+    <ul>
+      {% for album in albums %}
+        <li>
+          <a href="/albums/{{album.id}}">{{album.title  }}</a>
+        </li>
+      {% endfor %}
+    </ul>
   </body>
 </html>

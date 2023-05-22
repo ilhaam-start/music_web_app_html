@@ -4,12 +4,20 @@ from playwright.sync_api import Page, expect
 def test_get_album_details(page, test_web_address, db_connection):
     db_connection.seed("seeds/albums_table.sql")
     page.goto(f"http://{test_web_address}/albums")
-    div_tags = page.locator("div")
-    expect(div_tags).to_have_text([
-        "\nTitle: Doolittle,\nReleased: 1989",
-        "\nTitle: Sufer Rosa,\nReleased: 1988"
+    li_tags = page.locator("li")
+    expect(li_tags).to_have_text([
+        "Doolittle",
+        "Surfer Rosa"
     ])
 
+def test_visit_show_page(page, test_web_address, db_connection):
+    db_connection.seed("seeds/albums_table.sql")
+    page.goto(f"http://{test_web_address}/albums")
+    page.click("text='Surfer Rosa'")
+    h1_tag = page.locator("h1")
+    expect(h1_tag).to_have_text("Album: Surfer Rosa")
+    paragraph_tag = page.locator("p")
+    expect(paragraph_tag).to_have_text("Released: 1988")
 # === Example Code Below ===
 
 """

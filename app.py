@@ -13,11 +13,18 @@ app = Flask(__name__)
 #   open http://localhost:5000/albums
 @app.route('/albums') # --> Defined a route (when I visit /albums URL, the below function will be executed)
 def get_albums():
-        connection = get_flask_database_connection(app)
-        repo = AlbumRepository(connection) # --> Instance of AlbumRepository class, with database connection passed as argument
-        albums = repo.all() # --> call all() method to retrieve all albums in the database
-        return render_template("albums/index.html", albums=albums) 
-        # Returns the rendered template and passes the albums variable to the template
+    connection = get_flask_database_connection(app)
+    repo = AlbumRepository(connection) # --> Instance of AlbumRepository class, with database connection passed as argument
+    albums = repo.all() # --> call all() method to retrieve all albums in the database
+    return render_template("albums/index.html", albums=albums) 
+    # Returns the rendered template and passes the albums variable to the template
+
+@app.route('/albums/<id>')
+def get_album_id(id):
+    connection = get_flask_database_connection(app)
+    repo = AlbumRepository(connection)
+    album = repo.find(id)
+    return render_template("albums/show.html", album=album)
 
 # == Example Code Below ==
 
