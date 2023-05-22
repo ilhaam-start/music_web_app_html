@@ -6,8 +6,8 @@ def test_get_album_details(page, test_web_address, db_connection):
     page.goto(f"http://{test_web_address}/albums")
     div_tags = page.locator("div")
     expect(div_tags).to_have_text([
-        "Title: Doolittle\nReleased: 1989",
-        "Title: Sufer Rosa\nReleased: 1988"
+        "\nTitle: Doolittle,\nReleased: 1989",
+        "\nTitle: Sufer Rosa,\nReleased: 1988"
     ])
 
 # === Example Code Below ===

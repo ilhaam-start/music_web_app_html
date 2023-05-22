@@ -10,16 +10,14 @@ app = Flask(__name__)
 
 # == Your Routes Here ==
 
-# GET /emoji
-# Returns a smiley face in HTML
-# Try it:
-#   ; open http://localhost:5000/albums
-@app.route('/albums')
+#   open http://localhost:5000/albums
+@app.route('/albums') # --> Defined a route (when I visit /albums URL, the below function will be executed)
 def get_albums():
         connection = get_flask_database_connection(app)
-        repo = AlbumRepository(connection)
-        albums = repo.all()
-        return render_template("albums/index.html", albums=albums)
+        repo = AlbumRepository(connection) # --> Instance of AlbumRepository class, with database connection passed as argument
+        albums = repo.all() # --> call all() method to retrieve all albums in the database
+        return render_template("albums/index.html", albums=albums) 
+        # Returns the rendered template and passes the albums variable to the template
 
 # == Example Code Below ==
 
