@@ -50,7 +50,7 @@ def create_album():
     repository = AlbumRepository(connection)
     title = request.form['title']
     release_year = request.form['release_year']
-    album = Album(None, title, release_year)
+    album = Album(None, title, release_year, 1)
     repository.create(album)
     return redirect(f"/albums/{album.id}")
 

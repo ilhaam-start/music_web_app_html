@@ -46,10 +46,11 @@ def test_create_new_album(page, test_web_address, db_connection):
     page.fill("input[name=title]", "My Album")
     page.fill("input[name=release_year]", "2023")
     page.click("text='Add an album'")
-    title_element = page.locator(".t-title")
-    expect(title_element).to_have_text("Title: My Album")
-    release_element = page.locator(".t-release_year")
-    expect(release_element).to_have_text("Released: 2023")
+    h1_tag = page.locator(".t-title")
+    expect(h1_tag).to_have_text("Title: My Album")
+    paragraph_tag = page.locator(".t-release_year")
+    expect(paragraph_tag).to_have_text("Released: 2023")
+
 
 # === Example Code Below ===
 
