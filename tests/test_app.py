@@ -14,9 +14,9 @@ def test_visit_show_page(page, test_web_address, db_connection):
     db_connection.seed("seeds/albums_table.sql")
     page.goto(f"http://{test_web_address}/albums")
     page.click("text='Surfer Rosa'")
-    h1_tag = page.locator("h1")
-    expect(h1_tag).to_have_text("Album: Surfer Rosa")
-    paragraph_tag = page.locator("p")
+    h1_tag = page.locator(".t-title")
+    expect(h1_tag).to_have_text("Title: Surfer Rosa")
+    paragraph_tag = page.locator(".t-release_year")
     expect(paragraph_tag).to_have_text("Released: 1988")
 
 def test_get_artist(page, test_web_address, db_connection):
@@ -38,6 +38,18 @@ def test_get_all_artists(page, test_web_address, db_connection):
         "Nina Simone"
     ])
 
+def test_create_new_album(page, test_web_address, db_connection):
+    page.set_default_timeout(1000)
+    db_connection.seed("seeds/albums_table.sql")
+    page.goto(f"http://{test_web_address}/albums")
+    page.click("text='Add a new album'")
+    page.fill("input[name=title]", "My Album")
+    page.fill("input[name=release_year]", "2023")
+    page.click("text='Add an album'")
+    title_element = page.locator(".t-title")
+    expect(title_element).to_have_text("Title: My Album")
+    release_element = page.locator(".t-release_year")
+    expect(release_element).to_have_text("Released: 2023")
 
 # === Example Code Below ===
 

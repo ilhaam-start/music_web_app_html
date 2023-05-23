@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <title>Album List</title>
+</head>
+
+<body>
+    <h1>Add a new Album</h1>
+
+    <form action="/albums" methods="POST">
+        <p>
+            <label for="title">Title</label>
+            <br>
+            <input type="text" name="title" id="title">
+        </p>
+
+        <p>
+            <label for="release_year">Released</label>
+            <br>
+            <input type="text" name="release_year" id="release_year">
+        </p>
+
+        <p>
+            <input type="submit" value="Add an album">
+        </p>
+    </form>
+</body>
+
+</html>
